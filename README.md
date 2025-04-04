@@ -1,4 +1,5 @@
 # banking-service
+<<<<<<< HEAD
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
@@ -60,3 +61,6 @@ If you want to learn more about building native executables, please consult <htt
 - Hibernate ORM with Panache ([guide](https://quarkus.io/guides/hibernate-orm-panache)): Simplify your persistence code for Hibernate ORM via the active record or the repository pattern
 - JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
 - Micrometer metrics ([guide](https://quarkus.io/guides/micrometer)): Instrument the runtime and your application with dimensional metrics using Micrometer.
+=======
+repositorio para exercicios com quarkus da Alura
+>>>>>>> 093b8ed871bd0034731ed52c638b84c871e339a7
