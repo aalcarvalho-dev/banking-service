@@ -4,11 +4,9 @@ import br.com.alura.domain.Agencia;
 import br.com.alura.domain.http.AgenciaHttp;
 import br.com.alura.domain.http.SituacaoCadastral;
 import br.com.alura.exception.AgenciaNaoEncontradaOuInativaException;
+import br.com.alura.repository.AgenciaRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @ApplicationScoped
 public class AgenciaService {
@@ -16,28 +14,31 @@ public class AgenciaService {
     @RestClient
     private SituacaoCadastralHttpService situacaoCadastralHttpService;
 
-    private List<Agencia> agencias = new ArrayList<>();
+    private final AgenciaRepository agenciaRepository;
+
+    AgenciaService(AgenciaRepository agenciaRepository){
+        this.agenciaRepository = agenciaRepository;
+    }
 
     public void cadastrar(Agencia agencia){
         AgenciaHttp agenciaHttp = situacaoCadastralHttpService.buscarPorCnpj(agencia.getCnpj());
         if(agenciaHttp!=null && agenciaHttp.getSituacaoCadastral().equals(SituacaoCadastral.ATIVO)){
-            agencias.add(agencia);
+            agenciaRepository.persist(agencia);
         }else{
             throw new AgenciaNaoEncontradaOuInativaException();
         }
 
     }
 
-    public Agencia buscarPorId(Integer id){
-        return agencias.stream().filter(agencia -> agencia.getId().equals(id)).toList().get(0);
+    public Agencia buscarPorId(Long id){
+        return agenciaRepository.findById(id);
     }
 
-    public void deletar(Integer id){
-        agencias.removeIf(agencia -> agencia.getId().equals(id));
+    public void deletar(Long id){
+        agenciaRepository.deleteById(id);
     }
 
-    public void alterar(Agencia agencia){
-        deletar(agencia.getId());
-        cadastrar(agencia);
+    public void alterar(Agencia agencia) {
+        agenciaRepository.update("nome = ?1, razaoSocial = ?2, cnpj = ?3 where id = ?4", agencia.getNome(), agencia.getRazaoSocial(), agencia.getCnpj(), agencia.getId());
     }
 }

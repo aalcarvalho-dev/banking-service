@@ -8,12 +8,13 @@ public class Agencia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+    @Column(name = "razao_social")
     private String razaoSocial;
     private String cnpj;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_id")
     private Endereco endereco;
 
-    @OneToOne
-    @JoinColumn(name = "endereco_id")
     public Endereco getEndereco() {
         return endereco;
     }
@@ -22,7 +23,6 @@ public class Agencia {
         return cnpj;
     }
 
-    @Column(name = "razao_social")
     public String getRazaoSocial() {
         return razaoSocial;
     }
