@@ -1,6 +1,17 @@
 package br.com.alura.domain.http;
 
 public class AgenciaHttp {
+
+    public AgenciaHttp(String nome, String razaoSocial, String cnpj, SituacaoCadastral situacaoCadastral) {
+        this.nome = nome;
+        this.razaoSocial = razaoSocial;
+        this.cnpj = cnpj;
+        this.situacaoCadastral = situacaoCadastral;
+    }
+
+    public AgenciaHttp() {
+    }
+
     private String nome;
     private String razaoSocial;
     private String cnpj;

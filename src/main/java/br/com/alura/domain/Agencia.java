@@ -4,6 +4,19 @@ import jakarta.persistence.*;
 
 @Entity
 public class Agencia {
+
+    public Agencia(Integer id, String nome, String razaoSocial, String cnpj, Endereco endereco) {
+        this.id = id;
+        this.nome = nome;
+        this.razaoSocial = razaoSocial;
+        this.cnpj = cnpj;
+        this.endereco = endereco;
+    }
+
+    public Agencia(){
+
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
